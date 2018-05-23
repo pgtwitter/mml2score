@@ -31,10 +31,19 @@ function getNotes(data) {
 		obj.length = (obj.length == 0) ? 4 : obj.length;
 		note.duration = obj.length + '';
 		if (obj.command == 'note') {
-			note.keys = [obj.tone + '/4'];
+			note.keys = [obj.tone + '/' + octave];
 		} else if (obj.command == 'rest') {
 			note.keys = ['b/4'];
 			note.duration += 'r';
+		} else if (obj.command == 'octave_up') {
+			octave += 1;
+			continue;
+		} else if (obj.command == 'octave_down') {
+			octave -= 1;
+			continue;
+		} else {
+			console.warn('skip', obj);
+			continue;
 		}
 		const sNote = new VF.StaveNote(note);
 		if (obj.dots)
