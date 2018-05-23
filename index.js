@@ -28,16 +28,39 @@ function getNotes(data) {
 		const obj = data0[i];
 		const note = {};
 		note.clef = 'treble';
-		note.duration = obj.length == 0 ? 'q' : obj.length + '';
+		obj.length = (obj.length == 0) ? 4 : obj.length;
+		note.duration = obj.length + '';
 		if (obj.command == 'note') {
 			note.keys = [obj.tone + '/4'];
 		} else if (obj.command == 'rest') {
 			note.keys = ['b/4'];
 			note.duration += 'r';
 		}
-		notes.push(new VF.StaveNote(note));
+		const sNote = new VF.StaveNote(note);
+		if (obj.dots)
+			dots(sNote, obj.dots);
+		if (obj.accidentals)
+			accidentals(sNote, obj.accidentals);
+		notes.push(sNote);
 	}
 	return notes;
+}
+
+function dots(sNote, dots) {
+	for (let j = 0; j < dots.length; j++) {
+		const dot = dots[j];
+		if (dot != '.') continue;
+		sNote.addDot(0)
+	}
+}
+
+function accidentals(sNote, accidentals) {
+	for (let j = 0; j < accidentals.length; j++) {
+		const acc = accidentals[j];
+		if (acc != '+' && acc != '-') continue;
+		const accVex = acc == '+' ? '#' : (acc == '-') ? 'b' : acc;
+		sNote.addAccidental(0, new VF.Accidental(accVex));
+	}
 }
 
 function getScoreLinesContext(id, n) {
