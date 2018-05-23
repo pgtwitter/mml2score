@@ -1,0 +1,18 @@
+{
+	"name": "mml2score",
+	"version": "0.1.0",
+	"main": "index.js",
+	"license": "MIT",
+	"private": true,
+	"dependencies": {
+		"music-macro-language": "^0.1.0",
+		"vexflow": "^1.2.84"
+	},
+	"scripts": {
+		"watch": "NODE_ENV=development parcel --no-hmr --open index.html ",
+		"build": "NODE_ENV=production parcel build index.html --public-url ./"
+	},
+	"devDependencies": {
+		"parcel-bundler": "~1.6.2"
+	}
+}
