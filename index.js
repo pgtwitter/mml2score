@@ -24,6 +24,8 @@ function parseMML(data) {
 function getNotes(data) {
 	const notes = [];
 	const data0 = data[0];
+	let octave = 4;
+	let n= 0;
 	for (let i = 0; i < data0.length; i++) {
 		const obj = data0[i];
 		const note = {};
